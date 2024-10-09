@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Enter Booking Details</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    <h3>Guest Information</h3>
+    {{ guest_form.as_p }}
+    
+    <h3>Accommodation Information</h3>
+    {{ accommodation_form.as_p }}
+    
+    <h3>Booking Information</h3>
+    {{ booking_form.as_p }}
+    
+    <h3>Payment Information</h3>
+    {{ payment_form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <hr>
+
+  <!-- Table showing all the data -->
+  <h3>Submitted Data</h3>
+
+  <h4>Guests</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Company</th>
+        <th>Country</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for guest in guests %}
+      <tr>
+        <td>{{ guest.first_name }}</td>
+        <td>{{ guest.last_name }}</td>
+        <td>{{ guest.company }}</td>
+        <td>{{ guest.country }}</td>
+        <td>{{ guest.email }}</td>
+        <td>{{ guest.phone_number }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Accommodations</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Capacity</th>
+        <th>Price per Night</th>
+        <th>Discount</th>
+        <th>Availability</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for accommodation in accommodations %}
+      <tr>
+        <td>{{ accommodation.type }}</td>
+        <td>{{ accommodation.description }}</td>
+        <td>{{ accommodation.capacity }}</td>
+        <td>{{ accommodation.price_per_night }}</td>
+        <td>{{ accommodation.discount }}</td>
+        <td>{{ accommodation.availability }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Bookings</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Guest</th>
+        <th>Accommodation</th>
+        <th>Check-In Date</th>
+        <th>Check-Out Date</th>
+        <th>Total Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+      <tr>
+        <td>{{ booking.guest }}</td>
+        <td>{{ booking.accommodation }}</td>
+        <td>{{ booking.check_in_date }}</td>
+        <td>{{ booking.check_out_date }}</td>
+        <td>{{ booking.total_price }}</td>
+        <td>{{ booking.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Payments</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Booking</th>
+        <th>Payment Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payment in payments %}
+      <tr>
+        <td>{{ payment.booking }}</td>
+        <td>{{ payment.payment_date }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ payment.payment_method }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>
